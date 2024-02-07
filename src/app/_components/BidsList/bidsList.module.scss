@@ -1,0 +1,24 @@
+.numbers {
+    margin: 5px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #ccc
+}
+
+.sugestedNumbers {
+    background-color: #ccc;
+}
+
+.bids {
+    display: flex;
+}
+
+.title {
+    margin-bottom: 30px;
+}
+
+.bidContainer {
+    margin-top: 10px;
+}
