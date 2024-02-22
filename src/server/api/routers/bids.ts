@@ -3,10 +3,11 @@ import { z } from "zod";
 import {
   createTRPCRouter,
   protectedProcedure,
+  publicProcedure,
 } from "~/server/api/trpc";
 
 export const bidsRouter = createTRPCRouter({
-  create: protectedProcedure
+  create: publicProcedure
     .input(z.object({
       winner: z.boolean().optional(),
       numbers: z.array(
