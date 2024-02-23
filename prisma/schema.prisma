@@ -2,17 +2,21 @@ generator client {
     provider = "prisma-client-js"
 }
 
+generator json {
+    provider = "prisma-json-types-generator"
+}
+
 datasource db {
     provider = "mongodb"
     url      = env("DATABASE_URL")
 }
 
-
 model Bids {
-    id        String    @id @default(auto()) @map("_id") @db.ObjectId
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
     winner    Boolean
-    createdAt DateTime  @default(now())
-    numbers   Json[]
+    createdAt DateTime @default(now())
+    ///[NumberBids]
+    numbers  Json[]
 }
 
 model user {

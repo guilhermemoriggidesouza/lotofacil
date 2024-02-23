@@ -1,33 +1,32 @@
+"use client";
 import { H1, H3 } from "~/styles/style";
 import styles from "./bidsList.module.scss"
-import { unstable_noStore as noStore } from "next/cache";
-import { randomUUID } from "crypto";
-import { MockBids, MockNumbers, mockBid, } from "../_mock";
+import { Bid, NumbersBids } from "~/domain/entity/Bid";
 
+export interface BidsListProps {
+    bids: Bid[]
+}
 
-export const BidsList = () => {
-    noStore()
-    const bids = [mockBid(), mockBid(), mockBid(), mockBid(), mockBid(), mockBid(), mockBid(), mockBid()]
-    const genNumbers = (numbers: MockNumbers[]) => numbers.map(({ number, sugestion }: MockNumbers) => {
-        if (sugestion) return <div className={`${styles.sugestedNumbers} ${styles.numbers}`}>{number.toString()}</div>
-        return <div className={styles.numbers}>{number.toString()}</div>
+export const BidsList = ({ bids }: BidsListProps) => {
+    const genNumbers = (numbers: NumbersBids[]) => numbers.map((number: NumbersBids) => {
+        if (number.sugested) return <div className={`${styles.sugestedNumbers} ${styles.numbers}`}>{number.number.toString()}</div>
+        return <div className={styles.numbers}>{number.number.toString()}</div>
     })
-    const listBids = bids.map((bid: MockBids, i: number) =>
+    const listBids = bids.map((bid: Bid, i: number) =>
         <li className={styles.bidContainer} >
-            <label htmlFor={`bid-${bid.id}`}>({(i + 1).toString()}) Numeros - Você usou esse lance? </label>
-            <input id={`bid-${bid.id}`} value={bid.id} type="checkbox" />
+            <p>({(i + 1).toString()}) Numeros</p>
             <div className={styles.bids}>
                 {genNumbers(bid.numbers)}
             </div>
         </li>
     )
+
     const getSugestionNumbers = () => {
-        const sugestedNumbers = new Set(mockBid()
-            .numbers
-            .filter(e => e.sugestion)
-            .map(e => e.number)
-        )
-        return Array.from(sugestedNumbers).join(", ")
+        const numbers = bids
+            .flatMap(nb => nb.numbers)
+            .filter(nb => nb.sugested)
+            .map(bn => bn.number)
+        return Array.from(new Set(numbers)).join(", ")
     }
 
     return (

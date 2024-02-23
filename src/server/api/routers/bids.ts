@@ -2,29 +2,25 @@ import { z } from "zod";
 
 import {
   createTRPCRouter,
-  protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
 
 export const bidsRouter = createTRPCRouter({
   create: publicProcedure
-    .input(z.object({
-      winner: z.boolean().optional(),
+    .input(z.array(z.object({
+      winner: z.boolean().default(false),
       numbers: z.array(
         z.object({ sugested: z.boolean(), number: z.number() })
       )
-    }))
+    })))
     .mutation(async ({ ctx, input }) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      return ctx.db.bids.create({
-        data: {
-          winner: input.winner || false,
-          numbers: input.numbers
-        },
+      return ctx.db.bids.createMany({
+        data: [...input],
       });
     }),
 
-  getBids: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
+  get: publicProcedure.input(z.object({ limit: z.number().optional(), winner: z.boolean().optional() })).query(({ ctx, input }) => {
+    return ctx.db.bids.findMany({ where: { winner: input.winner }, take: input.limit });
   }),
+
 });
