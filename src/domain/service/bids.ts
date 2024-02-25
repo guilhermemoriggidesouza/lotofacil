@@ -12,9 +12,18 @@ export const sortMostWinnerNumbers = (bids: Bid[]) => {
         counts[num] = (counts[num] || 0) + 1;
         return counts;
     }, {});
-    const arrSortedAllNumbers = allNumbers.sort(function (p0, p1) {
+    const setAllnumbers = new Set(allNumbers)
+    const arrSortedAllNumbers = Array.from(setAllnumbers).sort(function (p0, p1) {
         return counts[p1] - counts[p0];
     });
-    const setAllnumbers = new Set(arrSortedAllNumbers)
-    return Array.from(setAllnumbers)
+    return arrSortedAllNumbers
+}
+
+export const actualDate = (data: Date) => {
+    let dia = data.getDate().toString(),
+        diaF = (dia.length == 1) ? '0' + dia : dia,
+        mes = (data.getMonth() + 1).toString(),
+        mesF = (mes.length == 1) ? '0' + mes : mes,
+        anoF = data.getFullYear();
+    return diaF + "/" + mesF + "/" + anoF;
 }

@@ -1,8 +1,10 @@
 import { ReactNode } from "react"
 import styles from './grid.module.scss'
+import { Bid } from "~/domain/entity/Bid"
+import { actualDate } from "~/domain/service/bids"
 export type Cell = { row: number, col: number }
 type GridProps = {
-    rows: number
+    rows: Bid[]
     cols?: number,
     populate: ({ row, col }: Cell) => any
 }
@@ -19,21 +21,22 @@ export default function Grid({ rows, cols, populate }: GridProps) {
         return colsElement
     }
 
-    const genGrid = ({ rows, cols }: { rows: number, cols: number }) => {
+    const genGrid = ({ rows, cols }: { rows: Bid[], cols: number }) => {
         const rowsElement = []
-        for (let row = 0; row < rows; row++) {
-            rowsElement.push(<div className={styles.row}>{genCol({ cols, row }) as ReactNode}</div>)
+        for (let row = 0; row < rows.length; row++) {
+            rowsElement.push(<div className={styles.row}><div className={styles.dateField}>{actualDate(rows[row]!.createdAt!)}</div><div className={styles.flex}>{genCol({ cols, row }) as ReactNode}</div></div>)
         }
         return rowsElement
     }
 
 
     return (
-        <>
+        <div className={styles.gridLayoyt}>
             <div className={styles.row}>
+                <div className={styles.dateField}>Data</div>
                 {headers.map(header => <div className={styles.col}>{header}</div>)}
             </div>
             {genGrid({ rows, cols: cols ?? headers.length })}
-        </>
+        </div>
     )
 }

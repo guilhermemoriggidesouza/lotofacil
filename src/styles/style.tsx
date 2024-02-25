@@ -33,7 +33,8 @@ export const Button = styled.button`
 export const Main = styled.main`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: calc(100vh - 60px);
+`
+export const Container = styled.div`
+    margin: 60px;
 `

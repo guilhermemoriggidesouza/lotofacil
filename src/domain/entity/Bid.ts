@@ -5,6 +5,7 @@ export interface NumbersBids {
 
 export interface Bid {
     id?: string
+    createdAt?: Date
     numbers: NumbersBids[];
     winner?: boolean
 }

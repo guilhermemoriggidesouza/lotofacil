@@ -4,22 +4,24 @@ import styles from "./bidsList.module.scss"
 import { Bid, NumbersBids } from "~/domain/entity/Bid";
 
 export interface BidsListProps {
-    bids: Bid[]
+    bids: Bid[],
+    sugestedNumbers: number[]
 }
 
-export const BidsList = ({ bids }: BidsListProps) => {
+export const BidsList = ({ bids, sugestedNumbers }: BidsListProps) => {
     const genNumbers = (numbers: NumbersBids[]) => numbers.map((number: NumbersBids) => {
         if (number.sugested) return <div className={`${styles.sugestedNumbers} ${styles.numbers}`}>{number.number.toString()}</div>
+        if (sugestedNumbers.includes(number.number)) return <div className={`${styles.sugestedNumbersRandonly} ${styles.numbers}`}>{number.number.toString()}</div>
         return <div className={styles.numbers}>{number.number.toString()}</div>
     })
     const listBids = bids.map((bid: Bid, i: number) =>
-        <li className={styles.bidContainer} >
-            <p>({(i + 1).toString()}) Numeros</p>
+        <li className={styles.bidContainer} key={i}>
+            <p>{(i + 1).toString()} Numero sugerido:</p>
             <div className={styles.bids}>
                 {genNumbers(bid.numbers)}
             </div>
         </li>
-    )
+    ).reverse()
 
     const getSugestionNumbers = () => {
         const numbers = bids
