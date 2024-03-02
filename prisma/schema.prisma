@@ -14,7 +14,7 @@ datasource db {
 
 model Bids {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    winner    Boolean
+    winner    Boolean  @default(false)
     createdAt DateTime @default(now())
     ///[NumberBids]
     numbers   Json[]

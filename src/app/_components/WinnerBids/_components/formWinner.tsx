@@ -10,7 +10,7 @@ export default async () => {
         <>
             <label htmlFor="bid">Ultimo Lance Premiado de hoje 02/04/2024: </label>
             <Input id="bid" type="text" name="bid" />
-            <small>Informe o lance separando por "," os numeros, ex: 1,2,3,11,12,13... </small>
+            <small>Informe o lance separando por &quot;,&quot; os numeros, ex: 1,2,3,11,12,13... </small>
             <div className={styles.button}>
                 <Button disabled={data.pending} type="submit">{data.pending ? "Carregando..." : "Salvar"}</Button>
             </div>

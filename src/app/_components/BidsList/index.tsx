@@ -9,10 +9,10 @@ export interface BidsListProps {
 }
 
 export const BidsList = ({ bids, sugestedNumbers }: BidsListProps) => {
-    const genNumbers = (numbers: NumbersBids[]) => numbers.map((number: NumbersBids) => {
+    const genNumbers = (numbers: NumbersBids[]) => numbers.map((number: NumbersBids, i: number) => {
         if (number.sugested) return <div className={`${styles.sugestedNumbers} ${styles.numbers}`}>{number.number.toString()}</div>
         if (sugestedNumbers.includes(number.number)) return <div className={`${styles.sugestedNumbersRandonly} ${styles.numbers}`}>{number.number.toString()}</div>
-        return <div className={styles.numbers}>{number.number.toString()}</div>
+        return <div key={i} className={styles.numbers}>{number.number.toString()}</div>
     })
     const listBids = bids.map((bid: Bid, i: number) =>
         <li className={styles.bidContainer} key={i}>

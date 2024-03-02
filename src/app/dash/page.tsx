@@ -6,13 +6,14 @@ import Grid, { Cell } from "../_components/Grid"
 import styles from './dash.module.scss'
 import { api } from "~/trpc/server"
 import { revalidatePath, unstable_noStore } from "next/cache"
+import { NumbersBids } from "~/domain/entity/Bid"
 
 export default async function Dash() {
     unstable_noStore()
     revalidatePath("/dash")
     const bids = await api.bids.get.query({ winner: true })
-    const genNumbers = ({ col, row }: Cell) => {
-        const bid = bids[row]!.numbers.map(numb => numb.number)
+    const genNumbers = ({ col, row }: Cell): React.JSX.Element => {
+        const bid = bids[row].numbers.map((numb: NumbersBids) => numb.number)
         if (bid.includes(col + 1)) {
             return <p className={styles.fullfieldNumber}>x</p>
         }

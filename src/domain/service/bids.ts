@@ -19,11 +19,11 @@ export const sortMostWinnerNumbers = (bids: Bid[]) => {
     return arrSortedAllNumbers
 }
 
-export const actualDate = (data: Date) => {
-    let dia = data.getDate().toString(),
-        diaF = (dia.length == 1) ? '0' + dia : dia,
-        mes = (data.getMonth() + 1).toString(),
-        mesF = (mes.length == 1) ? '0' + mes : mes,
-        anoF = data.getFullYear();
+export const actualDate = (data: Date): string => {
+    const dia: string = data.getDate().toString(),
+        diaF: string = (dia.length == 1) ? '0' + dia : dia,
+        mes: string = (data.getMonth() + 1).toString(),
+        mesF: string = (mes.length == 1) ? '0' + mes : mes,
+        anoF: number = data.getFullYear();
     return diaF + "/" + mesF + "/" + anoF;
 }

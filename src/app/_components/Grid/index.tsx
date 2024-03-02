@@ -6,13 +6,13 @@ export type Cell = { row: number, col: number }
 type GridProps = {
     rows: Bid[]
     cols?: number,
-    populate: ({ row, col }: Cell) => any
+    populate: ({ row, col }: Cell) => React.JSX.Element
 }
 
 export default function Grid({ rows, cols, populate }: GridProps) {
     const headers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
     const genCol = ({ cols, row }: { cols: number, row: number }) => {
-        const colsElement = []
+        const colsElement: React.JSX.Element[] = []
         for (let col = 0; col < cols; col++) {
             colsElement.push(<div className={styles.col}>
                 {populate({ col, row })}
@@ -22,9 +22,9 @@ export default function Grid({ rows, cols, populate }: GridProps) {
     }
 
     const genGrid = ({ rows, cols }: { rows: Bid[], cols: number }) => {
-        const rowsElement = []
+        const rowsElement: React.JSX.Element[] = []
         for (let row = 0; row < rows.length; row++) {
-            rowsElement.push(<div className={styles.row}><div className={styles.dateField}>{actualDate(rows[row]!.createdAt!)}</div><div className={styles.flex}>{genCol({ cols, row }) as ReactNode}</div></div>)
+            rowsElement.push(<div key={row} className={styles.row}><div className={styles.dateField}>{actualDate(rows[row].createdAt!)}</div><div className={styles.flex}>{genCol({ cols, row }) as ReactNode}</div></div>)
         }
         return rowsElement
     }
@@ -34,7 +34,7 @@ export default function Grid({ rows, cols, populate }: GridProps) {
         <div className={styles.gridLayoyt}>
             <div className={styles.row}>
                 <div className={styles.dateField}>Data</div>
-                {headers.map(header => <div className={styles.col}>{header}</div>)}
+                {headers.map((header, i) => <div key={i} className={styles.col}>{header}</div>)}
             </div>
             {genGrid({ rows, cols: cols ?? headers.length })}
         </div>

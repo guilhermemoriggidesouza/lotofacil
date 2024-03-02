@@ -2,7 +2,6 @@ import { Bid, NumbersBids } from "~/domain/entity/Bid";
 import { createBidByString, sortMostWinnerNumbers } from "~/domain/service/bids";
 import { api } from "~/trpc/server"
 function generateUniqueRandom(haveIt: number[]): number {
-    //TODO: REFACTOR
     let random: number = Math.floor(Math.random() * 24);
     random = random + 1
     if (!haveIt.includes(random)) {
@@ -34,6 +33,6 @@ export const createLastBid = async (bid: string): Promise<void> => {
         })
     }
     const bidDomain: Bid = createBidByString({ bid, winner: true })
-    await api.bids.create.mutate([bidDomain, ...bidsSugesteds])
+    await api.bids.create.mutate({ data: [bidDomain, ...bidsSugesteds] })
 
 }
