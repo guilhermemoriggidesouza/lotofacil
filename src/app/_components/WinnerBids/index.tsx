@@ -22,7 +22,7 @@ export const WinnerBids = ({ createWinnerBid, seed }: WinnerBidsProps) => {
     const [state, formAction] = useFormState(handlerForm, { success: false });
     return (
         <>
-            <button type='button' onClick={async () => await seed()}>seed</button>
+            {/* <button type='button' onClick={async () => await seed()}>seed</button> */}
             <form
                 action={formAction}
                 className={styles.container}>

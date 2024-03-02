@@ -19,9 +19,17 @@ export const bidsRouter = createTRPCRouter({
       });
     }),
 
-  get: publicProcedure.input(z.object({ limit: z.number().optional(), winner: z.boolean().optional() })).query(({ ctx, input }) => {
-    console.log("RODOU")
-    return ctx.db.bids.findMany({ where: { winner: input.winner }, take: input.limit });
+  get: publicProcedure.input(
+    z.object({
+      limit: z.number().optional(),
+      winner: z.boolean().optional(),
+    })
+  ).query(({ ctx, input }) => {
+    return ctx.db.bids.findMany({
+      where: { winner: input.winner }, take: input.limit, orderBy: {
+        createdAt: "desc"
+      }
+    });
   }),
 
 });

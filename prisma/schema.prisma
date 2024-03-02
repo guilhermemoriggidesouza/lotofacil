@@ -1,5 +1,6 @@
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["orderByRelation"]
 }
 
 generator json {
@@ -16,7 +17,7 @@ model Bids {
     winner    Boolean
     createdAt DateTime @default(now())
     ///[NumberBids]
-    numbers  Json[]
+    numbers   Json[]
 }
 
 model user {

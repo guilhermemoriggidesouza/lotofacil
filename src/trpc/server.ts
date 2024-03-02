@@ -17,6 +17,7 @@ import { transformer } from "./shared";
 const createContext = cache(() => {
   const heads = new Headers(headers());
   heads.set("x-trpc-source", "rsc");
+  heads.set("Cache-Control", "no-store, no-cache, must-revalidate")
 
   return createTRPCContext({
     headers: heads,
