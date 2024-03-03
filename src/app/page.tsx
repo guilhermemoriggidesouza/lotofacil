@@ -8,13 +8,13 @@ import { NumbersBids } from "~/domain/entity/Bid";
 
 export default async function Home() {
   noStore();
-  const [winnerBid] = await api.bids.get.query({ winner: true })
+  // const [winnerBid] = await api.bids.get.query({ winner: true })
   return (
     <Main>
       <Container>
         <Title>
           <H1>Ultimo lance premiado de hoje</H1>
-          <H2>{winnerBid?.numbers.map((number: NumbersBids) => number.number).join(",")}</H2>
+          {/* <H2>{winnerBid?.numbers.map((number: NumbersBids) => number.number).join(",")}</H2> */}
         </Title>
         <WinnerBids createWinnerBid={createLastBid} seed={seedBid} />
       </Container>
