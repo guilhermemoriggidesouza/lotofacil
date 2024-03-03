@@ -28,7 +28,9 @@ export const bidsRouter = createTRPCRouter({
     })
   ).query(({ ctx, input }) => {
     return ctx.db.bids.findMany({
-      where: { winner: input.winner }, take: input.limit
+      where: { winner: input.winner }, take: input.limit, orderBy: {
+        createdAt: "desc"
+      }
     });
   }),
 
