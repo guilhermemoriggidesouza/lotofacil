@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { Navbar } from "./_components/Navbar";
+import { Loading } from "./_components/loading";
+import { Suspense } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,7 +27,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
         <Navbar title="Lotofácil" />
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          <Suspense fallback={<Loading />}>
+            {children}
+          </Suspense>
+        </TRPCReactProvider>
+
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
 import { H1 } from "~/styles/style"
 
-export default () => {
+export const Loading = () => {
     return (<H1>CARREGANDO...</H1>)
 }
