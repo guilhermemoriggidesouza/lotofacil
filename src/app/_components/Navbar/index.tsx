@@ -38,7 +38,7 @@ export const Navbar = ({ title }: NavbarProps) => {
                         </li>
                         <li>
                             <Link href="/bids" legacyBehavior>
-                                <a onClick={(e) => revalidatePath("/bids")}>Lances</a>
+                                <a onClick={(e) => revalidatePath("/bids")}>Jogos</a>
                             </Link>
                         </li>
                     </ul>

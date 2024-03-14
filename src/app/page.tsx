@@ -13,8 +13,7 @@ export default async function Home() {
     <Main>
       <Container>
         <Title>
-          <H1>Ultimo lance premiado de hoje</H1>
-          <H2>{winnerBid?.numbers.map((number: NumbersBids) => number.number).join(",")}</H2>
+          <H1>Cadastrar jogos premiados</H1>
         </Title>
         <WinnerBids createWinnerBid={createLastBid} seed={seedBid} />
       </Container>
