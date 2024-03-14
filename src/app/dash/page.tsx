@@ -3,8 +3,10 @@ import Grid, { Cell } from "../_components/Grid"
 import styles from './dash.module.scss'
 import { api } from "~/trpc/server"
 import { NumbersBids } from "~/domain/entity/Bid"
+import { unstable_noStore } from "next/cache";
 
 export default async function Dash() {
+    unstable_noStore()
     const bids = await api.bids.get.query({ winner: true })
     const genNumbers = ({ col, row }: Cell): React.JSX.Element => {
         const bid = bids[row].numbers.map((numb: NumbersBids) => numb.number)

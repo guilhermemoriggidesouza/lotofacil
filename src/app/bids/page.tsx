@@ -2,8 +2,10 @@ import { api } from "~/trpc/server";
 import { Container, Main } from "../../styles/style";
 import { BidsList } from "../_components/BidsList";
 import { sortMostWinnerNumbers } from "~/domain/service/bids";
+import { unstable_noStore } from "next/cache";
 
 export default async function Bids() {
+    unstable_noStore()
     const winnerBids = await api.bids.get.query({ winner: true })
     const nonWinnerBids = await api.bids.get.query({ winner: false, limit: 15 })
     const sortedMostUsedNumbers = sortMostWinnerNumbers(winnerBids)
