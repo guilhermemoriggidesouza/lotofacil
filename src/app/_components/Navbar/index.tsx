@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import styles from './navbar.module.scss'
+import { revalidatePath } from "next/cache";
 
 export interface NavbarProps {
     title: string
@@ -26,13 +27,19 @@ export const Navbar = ({ title }: NavbarProps) => {
                 <div className={`${styles.navElements}  ${showNavbar && `${styles.active}`}`}>
                     <ul>
                         <li>
-                            <Link href="/">Inicio</Link>
+                            <Link href="/" legacyBehavior>
+                                <a onClick={(e) => revalidatePath("/")}>Inicio</a>
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/dash">Planilha</Link>
+                            <Link href="/dash" legacyBehavior>
+                                <a onClick={(e) => revalidatePath("/dash")}>Planilha</a>
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/bids">Lances</Link>
+                            <Link href="/bids" legacyBehavior>
+                                <a onClick={(e) => revalidatePath("/bids")}>Lances</a>
+                            </Link>
                         </li>
                     </ul>
                 </div>
